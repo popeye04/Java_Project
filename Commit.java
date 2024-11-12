@@ -10,7 +10,7 @@ public class Commit implements Serializable{
         this.previousCommit = previousCommit;
     }
 
-    public String getMessage() {
+    public String getMessage() { //getter method
         return message;
     }
 
