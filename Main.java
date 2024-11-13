@@ -6,7 +6,6 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         String filename = "repository.dat";
 
-        // Try to load the repository from a file
         Repository repo = Repository.loadRepository(filename);
         if (repo == null) {
             System.out.print("Enter repository name: ");
