@@ -30,3 +30,27 @@ public class Repository implements Serializable {
         }
         System.out.println("Branch not found.");
     }
+    public void commit(String message) {
+        if (activeBranch != null) {
+            activeBranch.addCommit(message);
+            System.out.println("Committed: " + message);
+        } else {
+            System.out.println("No active branch to commit.");
+        }
+    }
+
+    public void displayBranches() {
+        System.out.println("Branches in repository:");
+        for (Branch branch : branches) {
+            System.out.println("- " + branch.getName());
+        }
+    }
+
+    public void displayActiveBranchCommits() {
+        if (activeBranch != null) {
+            System.out.println("Commits in branch " + activeBranch.getName() + ":");
+            activeBranch.displayCommits();
+        } else {
+            System.out.println("No active branch.");
+        }
+    }
