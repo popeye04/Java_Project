@@ -1,15 +1,13 @@
 import java.io.Serializable;
-
 public class Branch implements Serializable {
     
     private String name;
     private Commit headCommit;
-
     
     public Branch(String name) {
         this.name = name;
     }
-
+    
     
     public String getName() {
         return name;
