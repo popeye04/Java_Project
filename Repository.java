@@ -54,3 +54,22 @@ public class Repository implements Serializable {
             System.out.println("No active branch.");
         }
     }
+   
+    public void saveRepository(String filename) {
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(filename))) {
+            out.writeObject(this);
+            System.out.println("Repository saved to " + filename);
+        } catch (IOException e) {
+            System.out.println("Error saving repository: " + e.getMessage());
+        }
+    }
+
+    public static Repository loadRepository(String filename) {
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(filename))) {
+            return (Repository) in.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Error loading repository: " + e.getMessage());
+            return null;
+        }
+    }
+}
