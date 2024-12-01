@@ -1,7 +1,6 @@
 import java.io.Serializable;
 
-public class Commit implements Serializable{
-    
+public class Commit implements Serializable {
     private String message;
     private Commit previousCommit;
 
@@ -10,7 +9,7 @@ public class Commit implements Serializable{
         this.previousCommit = previousCommit;
     }
 
-    public String getMessage() { //getter method
+    public String getMessage() {
         return message;
     }
 
@@ -19,8 +18,6 @@ public class Commit implements Serializable{
     }
 
     public void displayCommit() {
-        System.out.println("Commit: " +message);
+        System.out.println("Commit: " + message);
     }
-    
-    
 }
