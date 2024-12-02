@@ -1,16 +1,15 @@
-
 import java.io.*;
-import java.util.ArrayList; 
+import java.util.ArrayList;
 
 public class Repository implements Serializable {
     private String name;
     private ArrayList<Branch> branches;
-    private Branch activeBranch; 
+    private Branch activeBranch;
 
     public Repository(String name) {
         this.name = name;
         branches = new ArrayList<>();
-    } 
+    }
 
     public void createBranch(String branchName) {
         Branch branch = new Branch(branchName);
@@ -18,7 +17,7 @@ public class Repository implements Serializable {
         if (activeBranch == null) {
             activeBranch = branch;
         }
-    } 
+    }
 
     public void switchBranch(String branchName) {
         for (Branch branch : branches) {
@@ -30,6 +29,7 @@ public class Repository implements Serializable {
         }
         System.out.println("Branch not found.");
     }
+
     public void commit(String message) {
         if (activeBranch != null) {
             activeBranch.addCommit(message);
@@ -39,26 +39,30 @@ public class Repository implements Serializable {
         }
     }
 
-    public void displayBranches() {
-        System.out.println("Branches in repository:");
+    public String getBranchNames() {
+        StringBuilder sb = new StringBuilder("Branches in repository:\n");
         for (Branch branch : branches) {
-            System.out.println("- " + branch.getName());
+            sb.append("- ").append(branch.getName()).append("\n");
         }
+        return sb.toString();
     }
 
-    public void displayActiveBranchCommits() {
+    public String getCommitsForActiveBranch() {
         if (activeBranch != null) {
-            System.out.println("Commits in branch " + activeBranch.getName() + ":");
-            activeBranch.displayCommits();
-        } else {
-            System.out.println("No active branch.");
+            StringBuilder sb = new StringBuilder("Commits in branch " + activeBranch.getName() + ":\n");
+            Commit current = activeBranch.getHeadCommit();
+            while (current != null) {
+                sb.append(current.getMessage()).append("\n");
+                current = current.getPreviousCommit();
+            }
+            return sb.toString();
         }
+        return "No active branch.";
     }
-   
+
     public void saveRepository(String filename) {
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(filename))) {
             out.writeObject(this);
-            System.out.println("Repository saved to " + filename);
         } catch (IOException e) {
             System.out.println("Error saving repository: " + e.getMessage());
         }
